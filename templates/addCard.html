@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Add Card{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2 class="form-signin-heading text-center">Create a new Card</h2>
+    <form class="form-signin required" method="post" action="" novalidate>
+        {{ form.hidden_tag() }}
+       
+          {{ wtf.form_field(form.list) }}
+        
+        
+        <div class="form-group  required"><label class="form-control-label" for="title">Title</label>
+          <input class="form-control" id="title" min="4" max="40" name="title" required type="text">
+        </div>
+
+        <div class="form-group  required"><label class="form-control-label" for="content">Content</label>
+          <textarea class="form-control" id="content" max="100" min="6" name="content" required></textarea>       
+        </div>
+
+        <div class="form-group  required"><label class="form-control-label" >Deadline</label>
+          <input class="form-control" id="date" name="date" type="date" required ">       
+        </div>
+        <div class="form-check required">
+             <input class="form-check-input" id="complete" name="complete" type="checkbox" > 
+             <label class="form-control-label" >Mark as Complete</label>
+        </div>              
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Card</button>
+      </form>
+
+  </div>
+
+{% endblock %}

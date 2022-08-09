@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+{% block content %}
+  
+  <div class="container">
+    <h1>Summary</h1>
+    {% if not list %}
+    <div class="text-center">
+        <p>There are no lists in the board</p>
+        <br/>
+        <a href="/addList"><img src="{{url_for('static', filename='img/plus.png')}}" align="middle" width="100px" height="100px"/></a>
+        <span class="px-2">Add a List</span>
+      </div>
+    {% else %}
+    <div class="row">
+        {% for details in details %}
+        
+        <div class="col-sm-4">
+          <div class="alert alert-success text-center">
+  
+            <div class="">
+              <a class="btn btn-secondary " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ details.list_title }}
+              </a>
+             
+            </div>
+            <br/>
+            {% if details.expired_cards==0 and details.completed_cards == 0 and details.no_of_cards == 0  %}
+              <p>There is no Cards available</p>
+            {% elif details.expired_cards >=1 %}
+              <p class="text-danger">{{ details.expired_cards }} / {{ details.no_of_cards }} Passed Deadline</p> 
+            {% endif %}
+            {% if details.completed_cards >=0 %}
+              <p class="text-success">{{ details.completed_cards }} / {{ details.no_of_cards }} Completed Tasks</p>
+            {% endif %}
+
+            
+            <canvas id="chart_{{ details.id }}" width="100" height="100"></canvas>
+            <script>
+              const ctx_{{ details.id }} = document.getElementById('chart_{{ details.id }}').getContext('2d');
+              const chart_{{ details.id }} = new Chart(ctx_{{details.id}}, {
+                  type: 'bar',
+                  data: {
+                      labels: {{ dates|tojson|safe }},
+                      datasets: [{
+                          label: '# Tasks',
+                          data: {{ details.completed_days }},
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(54, 162, 235, 0.2)',
+                              'rgba(255, 206, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',
+                              'rgba(153, 102, 255, 0.2)',
+                              'rgba(255, 159, 64, 0.2)'
+                          ],
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                        y: {
+                          ticks: {
+                            stepSize: 1,
+                            beginAtZero: true,
+                          },
+                        },
+                      }
+                  }
+              });
+              </script>
+  
+          </div>
+        </div>
+       
+        {% endfor %}
+       
+      </div>   
+      </div>
+    {% endif %}  
+    
+    </div>
+  </div>
+  
+  
+ 
+  
+ 
+  
+{% endblock %}

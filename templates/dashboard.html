@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h2 class="webfont-heading"> Welcome {{name}} ! </h2>
+  <br/>
+  {% if not list %}
+  <div class="text-center">
+    <p>There are no lists in the board</p>
+    <br/>
+  </div>
+  {% else %}
+    
+    <div class="row">
+      {% for list in list %}
+      <div class="col-sm-4 ">
+        <div class=" text-center alert alert-primary">
+          <br/>
+          <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ list.name }}
+            </a>
+            
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item " href="{{url_for('editList', id=list.id)}}">Edit</a></li>
+              <li><a class="dropdown-item " href="{{url_for('deleteList', id=list.id)}}">Delete</a></li>
+            </ul>
+          </div>
+          <br/>
+          {% for card in card %}
+            {% if card.list_id == list.id %}
+            
+            <div class="text-center card px-5  {{ 'alert alert-success' if card.complete == 'on'   }} {{ 'alert alert-danger' if card.is_deadline == '1' and card.complete == 'False' }} ">
+              <div class="dropdown">
+                <br/>
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ card.title }}
+                  
+                </a>
+              
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{url_for('editCard', id=card.id)}}">Edit</a></li>
+                  <li><a class="dropdown-item" href="{{url_for('deleteCard', id=card.id)}}">Delete</a></li>
+                </ul>
+              </div>
+              <br/>
+              <p>{{card.content}}</p>
+              <p class="text-end">{{ card.date }}</p>
+            </div>     
+          <br/>
+          {% endif %}         
+          {% endfor %}
+          <br/>
+          <div class="text-center">
+           <a href="{{url_for('addCard', id=list.id)}}"><img src="{{url_for('static', filename='img/plus.png')}}" align="middle" width="50px" height="50px"/></a>
+           <p class="px-2">Add a Card</p>
+         </div>
+
+        </div>
+      </div>
+      
+      {% endfor %}
+      <div class="col-sm-4 ">
+        <div class=" text-center" style="padding-top: 75px;">
+          <a href="/addList"><img src="{{url_for('static', filename='img/plus.png')}}" align="middle" width="70px" height="70px"/></a>
+          <br>
+          <p>Add a List</p>
+        </div>
+      </div>
+
+      <br/>
+      <br/>
+    </div>  <!--row--> 
+    </div>
+  {% endif %}  
+  {% if not list %}
+  <div class="text-center">
+    <a href="/addList"><img src="{{url_for('static', filename='img/plus.png')}}" align="middle" width="70px" height="70px"/></a>
+    <br/>
+    <span class="px-2">Add a List</span>
+  {% endif %}
+    
+  </div>
+</div>
+
+{% endblock %}

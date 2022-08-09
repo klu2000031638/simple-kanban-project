@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Add List{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <form class="form-signin" method="POST" action="/addList">
+        <h2 class="form-signin-heading">Create a new task.</h2>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.name) }}
+        {{ wtf.form_field(form.description) }}
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Task</button>
+      </form>
+
+  </div>
+{% endblock %}

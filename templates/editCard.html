@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Add List{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2 class="form-signin-heading text-center">Edit Card</h2>
+    <form class="form-signin" method="POST" action="{{ url_for('editCard', id=card[0].id)}}">
+        
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.list) }}
+        <div class="form-group  required"><label class="form-control-label" for="title">Title</label>
+          <input class="form-control" id="title" maxlength="25" minlength="4" name="title" required type="text" value="{{ card[0].title }}">
+        </div>
+
+        <div class="form-group  required"><label class="form-control-label" for="content">Content</label>
+          <textarea class="form-control" id="card" maxlength="100" minlength="6" name="content" required>{{ card[0].content }}</textarea>       
+        </div>
+
+        <div class="form-group  required"><label class="form-control-label" >Deadline</label>
+          <input class="form-control" id="date" name="date" type="date" required value="{{ card[0].date }}" >       
+        </div>
+        <div class="form-check required">
+          {% if card[0].complete == 'False' %}
+             <input class="form-check-input" id="complete" name="complete" type="checkbox" >       
+          {% else %}
+            <input class="form-check-input" id="complete" name="complete" type="checkbox" checked>       
+          {% endif %}
+             <label class="form-control-label" >Mark as Complete</label>
+        </div>           
+        
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Edit Card</button>
+      </form>
+
+  </div>
+
+{% endblock %}

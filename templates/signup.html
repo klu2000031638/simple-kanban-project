@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2 class="text-center" style="padding-top: 40px;">Welcome to Kanban Board</h2>
+    <div class="text-center">
+      <form class="form-signin required" method="POST" action="/signup">
+        <p class="text-center">Please Signup to create Kanban Board</p>
+      {{ form.hidden_tag() }}
+      {{ wtf.form_field(form.username) }}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">SignUp</button>
+      <br/>
+      <p>Are you Already Registered? <a href="/">Login</a></p>
+      </form>
+      
+    
+    {% if error %}
+      <p class="text-warning">{{ error }}</p>
+      </div>
+  </div>
+  {% endif %}
+{% endblock %}

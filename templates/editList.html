@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Add List{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <form class="form-signin" method="POST" action="{{ url_for('editList', id=list[0].id)}}">
+        <h2 class="form-signin-heading">Create a new task.</h2>
+        {{ form.hidden_tag() }}
+        <div class="form-group  required"><label class="form-control-label" for="name">Name</label>
+          <input class="form-control" id="name" maxlength="25" minlength="4" name="name" required type="text" value="{{ list[0].name }}">
+        </div>
+
+        <div class="form-group  required"><label class="form-control-label" for="description">Description</label>
+          <textarea class="form-control" id="description" maxlength="100" minlength="6" name="description" required>{{ list[0].description }}</textarea>       
+        </div>
+        
+        
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Task</button>
+      </form>
+
+  </div>
+{% endblock %}
