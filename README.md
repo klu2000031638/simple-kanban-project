@@ -1,2 +1,2 @@
 # simple-kanban-project
-Azure Web Page: https://kanban-project.azurewebsites.net/
+Azure Web Page: https://kanbdan-project.azurewebsites.net/
