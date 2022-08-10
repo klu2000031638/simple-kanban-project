@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'kanbdan-project'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_67A679C4F16A48D590A5821E3F2996BE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E8E9055CDC3B46F39F9326E0F370CEC5 }}
